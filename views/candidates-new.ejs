@@ -1,0 +1,79 @@
+<%-include ("partials/top") %>
+<div class="row space">
+  <div class="col-12">
+    <form action="/candidates/new" method="POST" enctype="multipart/form-data">
+      <div>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong><%= error_msg %></strong> 
+          </div>
+          <script>
+            $(".alert").alert();
+          </script>
+        <% } %>
+      </div>
+
+      <fieldset class="border p-2 rounded row text-white">
+        <legend>Candidate Details</legend>
+        
+        <input name="election" value='<%= election._id %>' type="hidden">
+
+        <div class="form-group col-md-6">
+          <label>Position Contesting For: <strong class="text-danger">*</strong></label>
+          <select class="form-control" name="position" required>
+            <option>Select Position</option>
+            <% election.positions.forEach(p => { %>
+              <option value='<%= p.title %>'><%= p.title %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label>Party Contesting Under: (Not Compulsory)</label>
+          <select class="form-control" name="party">
+            <option>Select Party</option>
+            <% parties.forEach(p => { %>
+              <option value='<%= p._id %>'><%= p.name %></option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Surname: <strong class="text-danger">*</strong></label>
+          <input required type="text" class="form-control" name="surname">
+        </div>
+        <div class="form-group col-md-4">
+          <label>First Name: <strong class="text-danger">*</strong></label>
+          <input required type="text" class="form-control" name="first_name">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Middle Name (Optional): <strong class="text-danger">*</strong></label>
+          <input required type="text" class="form-control" name="middle_name">
+        </div>
+        <div class="form-group col-md-4">
+          <label>Gender: <strong class="text-danger">*</strong></label>
+          <select class="form-control" name="gender" required>
+            <option></option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Photo: <strong class="text-danger">*</strong></label>
+          <input class="form-control" type="file" name="photo" accept="image/jpg, image/png, image/jpeg">
+        </div>
+      </fieldset>
+      
+      <div class="form-group mt-4">
+        <button class="btn btn-success form-control" type="submit">Add New Candidate</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</main>
+
+<%-include ("partials/bottom") %>

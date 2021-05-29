@@ -1,0 +1,69 @@
+<%- include ('partials/top') %>
+  <div class="row space">
+    <div class="col-12 d-flex justify-content-between align-items-center underline pb-2">
+      <h3 class="title text-white">Elections</h3>
+      <div>
+        <a href="/elections/new" class="btn btn-success">Add Election</a>
+      </div>
+    </div> 
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form id="search-form" method="GET" action="/elections?" class="form-inline">
+        <div class="form-group mb-4">
+          <input required type="text" name="search" id="search-box" class="form-control" placeholder="Search by date...">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+      <h4 class="font-weight-light text-center text-white bg-primary p-2 m-0 table-top">List of Elections</h4>
+      <table class="table table-bordered table-striped text-white">
+        <thead class="font-weight-bold">
+          <tr>
+            <td><small>Photo</small></td>
+            <td><small>Title</small></td>
+            <td><small>Start Date</small></td>
+            <td><small>Start Time (24 Hours Format)</small></td>
+            <td><small>End Date</small></td>
+            <td><small>End Time (24 Hours Format)</small></td>
+            <td><small>Description</small></td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <% elections.forEach((m) => { %>
+            <tr>
+              <td style="width: 100px">
+                <img class="table-thumbnail" src='<%= "/images/" + m.photo  %>'>
+              </td>
+              <td><%= m.title %></td>
+              <td><%= m.start_time.split('T')[0] %></td>
+              <td><%= m.start_time.split('T')[1] %></td>
+              <td><%= m.end_time.split('T')[0] %></td>
+              <td><%= m.end_time.split('T')[1] %></td>
+              <td><%= m.description %></td>
+              <td>
+                <% if (m.status != "active") { %>
+                  <a href='<%= "/elections/publish/" + m._id %>' class="m-2 btn btn-sm btn-primary">Publish</a>
+                <% } %>
+                <% if (m.status == "active") { %>
+                  <a href='<%= "/elections/unpublish/" + m._id %>' class="m-2 btn btn-sm btn-warning">Unpublish</a>
+                <% } %>
+                <% if (m.status == "active") { %>
+                  <a href='<%= "/elections/results?election_id=" + m._id %>' class="m-2 btn btn-sm btn-success">View Result</a>
+                <% } %>
+                <a href='<%= "/elections/remove/" + m._id %>' class="m-2 btn btn-sm btn-danger">Remove</a>
+              </td>
+            </tr>
+          <% }) %>          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</div>
+
+</div>
+  
+
+<%- include ('partials/bottom') %>

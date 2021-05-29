@@ -1,0 +1,64 @@
+<%- include ('partials/top') %>
+  <div class="row space">
+    <div class="col-12 d-flex justify-content-between align-items-center underline pb-2">
+      <h3 class="title text-white">Candidates</h3>
+      <div>
+        <a href="/candidates/select-election" class="btn btn-success">Add New Candidate</a>
+      </div>
+    </div> 
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form id="search-form" method="GET" action="/candidates?" class="form-inline">
+        <div class="form-group mb-4">
+          <input required type="text" name="search" id="search-box" class="form-control" placeholder="Search by name...">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+      <h4 class="font-weight-light text-center text-white bg-primary p-2 m-0 table-top">List of Candidates</h4>
+      <table class="table table-bordered table-striped text-white">
+        <thead class="font-weight-bold">
+          <tr>
+            <td>Photo</td>
+            <td>Surname</td>
+            <td>Other Names</td>
+            <td>Gender</td>
+            <td>Party</td>
+            <td>Position Aspiring</td>
+            <td>Election</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% candidates.forEach((m) => { %>
+            <tr>
+              <td style="width: 100px">
+                <img class="table-thumbnail" src='<%= "/images/" + m.photo  %>'>
+              </td>
+              <td><%= m.surname %></td>
+              <td><%= m.first_name + ", " + m.middle_name %></td>
+              <td><%= m.gender %></td>
+              <td>
+                <% if (m.party) { %>
+                  <%= m.party.name %>
+                <% } %>
+              </td>
+              <td><%= m.position %></td>
+              <td><%= m.election.title %></td>
+              <td>
+                <a href='<%= "/evaluators/remove/" + m._id %>' class="btn btn-sm btn-danger">Remove</a>
+              </td>
+            </tr>
+          <% }) %>          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+</div>
+
+</div>
+  
+
+<%- include ('partials/bottom') %>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/app.css" type="text/css" />
+  <title><%= appname %></title>
+  <style>
+    .bg-primary, .btn-primary {
+      background-color: #3244a2 !important;
+    }
+    .text-primary {
+      color: #3244a2 !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm bg-primary text-white py-0 d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <a class="display-4 mr-2" href="#">
+        <i class="fa fa-compass text-white display-4" aria-hidden="true"></i>
+      </a>
+      <h4 class="font-weight-normal app-title"><%= appname %>
+      </h4>
+    </div>
+    <div>
+      <a href="/ballots/logout" class="btn btn-outline-light">logout</a>
+    </div>
+  </nav>
+
+  <main class="container-fluid">
+  <div class="row space">
+    <div class="col-12 d-flex justify-content-center align-items-center underline pb-2">
+      <h3 class="title text-white text-center">Ongoing Elections</h3>
+    </div> 
+  </div>
+
+  <div class="row space">
+    <div class="col-8 offset-2">
+      <div>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong><%= error_msg %></strong> 
+          </div>
+          <script>
+            $(".alert").alert();
+          </script>
+        <% } %>
+      </div>
+    </div>
+    <div class="col-12">
+      <ul class="list-group">
+        <% elections.forEach( e => { %>
+          <li class="text-white d-flex justify-content-between border p-2 mb-3 rounded">
+            <h4><%= e.title %></h4>
+            <a href='<%= "/ballots/election?election_id=" + e._id %>' class="mx-4 btn btn-primary"><small>Proceed To Vote</small></a>
+          </li>
+        <% } ) %>
+      </ul>
+    </div>
+  </div>
+</main>
+</div>
+
+</div>
+  
+
+<%- include ('partials/bottom') %>

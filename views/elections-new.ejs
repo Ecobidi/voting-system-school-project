@@ -1,0 +1,114 @@
+<%-include ("partials/top") %>
+<div class="row space">
+  <div class="col-12">
+    <form action="/elections/new" method="POST" enctype="multipart/form-data">
+      <div>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong><%= error_msg %></strong> 
+          </div>
+          <script>
+            $(".alert").alert();
+          </script>
+        <% } %>
+      </div>
+
+      <fieldset class="border p-2 rounded row text-white">
+        <legend>Election Details</legend>
+        <div class="form-group col-md-6">
+          <label>Title of Election: <strong class="text-danger">*</strong></label>
+          <input required type="text" class="form-control" name="title">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Description: <strong class="text-danger">*</strong></label>
+          <textarea name="description" class="form-control"></textarea>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Start Date: <strong class="text-danger">*</strong></label>
+          <input required type="date" class="form-control" name="start_date">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Start Time: <strong class="text-danger">*</strong></label>
+          <input required type="time" class="form-control" name="start_time">
+        </div>
+        <div class="form-group col-md-6">
+          <label>End Date: <strong class="text-danger">*</strong></label>
+          <input required type="date" class="form-control" name="end_date">
+        </div>
+        <div class="form-group col-md-6">
+          <label>End Time: <strong class="text-danger">*</strong></label>
+          <input required type="time" class="form-control" name="end_time">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Election Photo: </label>
+          <input type="file" name="photo" class="form-control">
+        </div>
+      </fieldset>
+
+      <div class="row space">
+        <button type="button" class="btn btn-primary" id="add-position">Add Elective Positions</button>
+      </div>
+
+      <div class="text-white" id="positions-container">
+        <div class="row">
+          <div class="form-group col-6">
+            <label class="mb-4">Title of the Position: </label>
+            <input required type="text" class="form-control" name="positions[224]" placeholder="position title..." onkeyup="updatePositionTitle(this)">
+          </div>
+          <div class="form-group col-6">
+            <label class="mb-4">Description of the Position: </label>
+            <input class="form-control" name="positions[224]" "placeholder="brief description..." onkeypress="updatePositionDescription(this)">
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group mt-4">
+        <button class="btn btn-success form-control" type="submit">Create Election</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</main>
+
+<script>
+  let removeFromDOM = (e) => {
+    let containerNode = e.parentNode.parentNode.parentNode
+    let rowNode = e.parentNode.parentNode
+    containerNode.removeChild(rowNode)
+  }
+
+  let updatePositionTitle = (e) => {}
+
+  let updatePositionDescription = (e) => {}
+
+  let getPositionFormInputTemplate = () => {
+    let label = new Date().getTime()
+    return (`
+    <div class="row">
+      <div class="form-group col-5">
+        <input required type="text" class="form-control" name=${"positions[" + label + "]"} placeholder="position title..." onkeypress="updatePositionTitle(this)">
+      </div>
+      <div class="form-group col-5">
+        <input class="form-control" name=${"positions[" + label + "]"} placeholder="brief description..." onkeypress="updatePositionDescription(this)">
+      </div>
+      <div class="form-group col-2">
+        <button type="button" class="form-control btn btn-sm btn-danger" onclick="removeFromDOM(this)">Remove</button>
+      </div>
+    </div>
+    `)
+  }
+
+  document.onreadystatechange = () => {
+
+    document.getElementById('add-position').onclick = (e) => {
+      console.log(e)
+      $('#positions-container').append(getPositionFormInputTemplate())
+    }
+  }
+</script>
+
+<%-include ("partials/bottom") %>
