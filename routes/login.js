@@ -6,10 +6,12 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req,res) => {
-  let loginType = req.body.login_type
   let dao = req.body
   try {
+    let users = await UserService.findAll()
+    console.log(users)
     let user = await UserService.findByUsername(dao.username)
+    // console.log(user)
     // check for password match
     if (user && user.password == dao.password) {
       req.session.loggedIn = true

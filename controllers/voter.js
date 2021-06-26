@@ -19,16 +19,17 @@ class VoterController {
       return res.redirect('/voters/new')
     }
     try {
-      if (req.files) {
-        let file = req.files.photo
-        let extname = path.extname(file.name)
-        let filename = 'voter_' + new Date().getMilliseconds() + extname
-        await file.mv(process.cwd() + '/uploads/images/' + filename)
-        dao.photo = filename
-        await VoterService.create(dao)
-      } else {
-        await VoterService.create(dao)
-      }
+      // if (req.files) {
+      //   let file = req.files.photo
+      //   let extname = path.extname(file.name)
+      //   let filename = 'voter_' + new Date().getMilliseconds() + extname
+      //   await file.mv(process.cwd() + '/uploads/images/' + filename)
+      //   dao.photo = filename
+      //   await VoterService.create(dao)
+      // } else {
+      //   await VoterService.create(dao)
+      // }
+      await VoterService.create(dao)
       res.redirect('/voters')
     } catch (err) {
       console.log(err)

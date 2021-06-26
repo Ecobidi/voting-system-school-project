@@ -1,3 +1,4 @@
+require('dotenv').config({path: __dirname + '/.env'})
 let express = require('express')
 let expressSession = require('express-session')
 let fileupload = require('express-fileupload')
@@ -6,6 +7,15 @@ let mongoose = require('mongoose')
 // let MongoStore = require('connect-mongo')(expressSession)
 // let passport = require('passport')
 let { APPNAME, PORT, dbhost, dbport, dbname, sessionsecret, domain, owner_mat_no, owner_name} = require('./config') 
+
+let port = process.env.PORT || PORT
+
+console.log(process.env.PORT)
+
+//bring in mongo uri from mlab
+const mongoURI = "mongodb+srv://ecobidi:tronpoker2012@cluster0.qmunc.mongodb.net/votingsystem?retryWrites=true&w=majority"
+//monnect mongodb
+mongoose.connect(mongoURI, { useMongoClient: true });
 
 // routes
 const { LoginRouter, UserRouter, BallotRouter, CandidateRouter, ElectionRouter, PartyRouter, VoterRouter } = require('./routes')
@@ -18,7 +28,7 @@ const VoterModel = require('./models/voter')
 const UserModel = require('./models/user')
 
 // connect to mongodb database
-mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
+// mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
 
 // init express App
 let app = express()
@@ -70,41 +80,41 @@ app.use((req, res, next) => {
 
 app.use('/login', LoginRouter)
 
-// app.use('/', (req, res, next) => {
-//   // for authenticating login
-//   if (req.session.loggedIn) {
-//     next()
-//   } else {
-//     res.redirect('/login')
-//   }
-// })
+app.use('/', (req, res, next) => {
+  // for authenticating login
+  if (req.session.loggedIn) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+})
 
-// app.get('/logout', (req, res) => {
-//   req.session.loggedIn = false
-//   req.session.username = ''
-//   res.redirect('/login')
-// })
-
-// let getDashboard = async (req, res) => {
-//   try {
-//     let party_count = await PartyModel.count()
-//     let candidate_count = await CandidateModel.count()
-//     let voter_count = await VoterModel.count()
-//     let election_count = await ElectionModel.count()
-//     let user_count = await UserModel.count()
-//     res.render('dashboard', {party_count, candidate_count, election_count, voter_count, user_count})
-//   } catch (err) {
-//     console.log(err)
-//     res.render('dashboard', {
-//       party_count: 0, candidate_count: 0, election_count: 0,
-//       voter_count: 0, user_count: 0,
-//     })
-//   }
-// }
+app.get('/logout', (req, res) => {
+  req.session.loggedIn = false
+  req.session.username = ''
+  res.redirect('/login')
+})
 
 let getDashboard = async (req, res) => {
-  res.render('dashboard')
+  try {
+    let party_count = await PartyModel.count()
+    let candidate_count = await CandidateModel.count()
+    let voter_count = await VoterModel.count()
+    let election_count = await ElectionModel.count()
+    let user_count = await UserModel.count()
+    res.render('dashboard', {party_count, candidate_count, election_count, voter_count, user_count})
+  } catch (err) {
+    console.log(err)
+    res.render('dashboard', {
+      party_count: 0, candidate_count: 0, election_count: 0,
+      voter_count: 0, user_count: 0,
+    })
+  }
 }
+
+// let getDashboard = async (req, res) => {
+//   res.render('dashboard')
+// }
 
 app.get('/', getDashboard)
 
@@ -122,4 +132,6 @@ app.use('/voters', VoterRouter)
 
 app.use('/users', UserRouter)
 
-app.listen(PORT, () => { console.log(`${APPNAME} running on port ${PORT}`) })
+console.log(port)
+
+app.listen(port, () => { console.log(`${APPNAME} running on port ${port}`) })

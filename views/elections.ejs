@@ -43,13 +43,7 @@
               <td><%= m.end_time.split('T')[1] %></td>
               <td><%= m.description %></td>
               <td>
-                <% if (m.status != "active") { %>
-                  <a href='<%= "/elections/publish/" + m._id %>' class="m-2 btn btn-sm btn-primary">Publish</a>
-                <% } %>
-                <% if (m.status == "active") { %>
-                  <a href='<%= "/elections/unpublish/" + m._id %>' class="m-2 btn btn-sm btn-warning">Unpublish</a>
-                <% } %>
-                <% if (m.status == "active") { %>
+                <% if (new Date() > new Date(m.end_time)) { %>
                   <a href='<%= "/elections/results?election_id=" + m._id %>' class="m-2 btn btn-sm btn-success">View Result</a>
                 <% } %>
                 <a href='<%= "/elections/remove/" + m._id %>' class="m-2 btn btn-sm btn-danger">Remove</a>

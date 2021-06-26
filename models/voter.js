@@ -26,7 +26,7 @@ let VoterSchema = new mongoose.Schema({
   phone: {
     type: String,
   },
-  email: {
+  unique_voting_id: {
     type: String,
     required: true,
     unique: true,
