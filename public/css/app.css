@@ -32,6 +32,12 @@
   border-radius: 50%;
 }
 
+.logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
 body {
   background-image: url(/images/background.jpg);
   background-repeat: no-repeat;
