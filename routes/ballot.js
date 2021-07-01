@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const BallotController = require('../controllers/ballot')
+const ElectionController = require('../controllers/election')
 
 router.get('/login', BallotController.getBallotLoginPage)
 
@@ -22,6 +23,8 @@ router.get('/logout', BallotController.handleBallotLogout)
 // router.get('/new', BallotController.createBallotPage)
 
 router.post('/new', BallotController.createBallot)
+
+router.get('/results', ElectionController.viewElectionResults)
 
 // router.get('/remove/:ballot_id', BallotController.removeBallot)
 

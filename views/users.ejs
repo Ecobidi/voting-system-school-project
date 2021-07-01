@@ -17,10 +17,9 @@
         </div>
       </form>
       <h4 class="font-weight-light text-center text-white bg-primary p-2 m-0 table-top">List of Users</h4>
-      <table class="table table-bordered table-striped text-white">
+      <table class="table table-striped text-white">
         <thead class="font-weight-bold">
           <tr>
-            <td>Profile Photo</td>
             <td>Username</td>
             <td>Surname</td>
             <td>Other Names</td>
@@ -31,9 +30,6 @@
         <tbody>
           <% users.forEach((m) => { %>
             <tr>
-              <td>
-                <img class="table-thumbnail" src='<%= "/images/" + m.photo  %>'>
-              </td>
               <td><%= m.username %></td>
               <td><%= m.surname %></td>
               <td><%= m.other_names %></td>

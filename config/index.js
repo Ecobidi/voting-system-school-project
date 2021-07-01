@@ -1,7 +1,7 @@
 module.exports = {
   'domain': 'http://localhost',
   'PORT': 5400,
-  'APPNAME': 'Voting Management System',
+  'APPNAME': 'N.A.C.O.S. Decides',
   'dbhost': 'localhost',
   'dbname': 'voting-mgt-sys',
   'dbport': 27017,

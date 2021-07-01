@@ -1,7 +1,11 @@
 <%-include ("partials/top") %>
   <div class="row space">
+    <div class="col-12 d-flex justify-content-between align-items-center underline pb-2">
+      <h3 class="title text-white">Voter Registration</h3>
+    </div>
+
     <div class="col-12">
-      <form action="/voters/new" method="POST" enctype="multipart/form-data">
+      <form action="/voters/new" method="POST">
         <div>
           <% if (error_msg && error_msg.length > 0) { %>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -15,92 +19,10 @@
             </script>
           <% } %>
         </div>
-        
-        <fieldset class="border p-2 rounded row text-white">
-          <legend>Identification</legend>
-          <div class="form-group col-md-4">
-            <label>Surname: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="surname">
-          </div>
-          <div class="form-group col-md-4">
-            <label>First Name: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="first_name">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Middle Name: (Not Compulsory)</label>
-            <input required type="text" class="form-control" name="middle_name">
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 rounded row text-white">
-          <legend>Residential Address</legend>
-          <div class="form-group col-md-4">
-            <label>Home Address: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="resident_address">
-          </div>
-
-          <div class="form-group col-md-4">
-            <label>City: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="resident_city">
-          </div>
-
-          <div class="form-group col-md-4">
-            <label>State: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="resident_state">
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 rounded row text-white">
-          <legend>Place of Origin</legend>
-          <div class="form-group col-md-4">
-            <label>State of Origin: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="origin_state">
-          </div>
-
-          <div class="form-group col-md-4">
-            <label>L.G.A.: <strong class="text-danger">*</strong></label>
-            <input required type="text" class="form-control" name="origin_lga">
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 rounded row text-white">
-          <legend>Additional Information</legend>
-          <div class="form-group col-md-4">
-            <label>Mobile Phone: <strong class="text-danger">*</strong></label>
-            <input class="form-control" type="text" name="phone">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Gender: <strong class="text-danger">*</strong></label>
-            <select class="form-control" name="gender" required>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <div class="form-group col-md-4">
-            <label>Photo: <strong class="text-danger">*</strong></label>
-            <input class="form-control" type="file" name="photo" accept="image/jpg, image/png, image/jpeg">
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 rounded row text-white">
-          <legend>Voting Authentication Details</legend>
-          <div class="form-group col-md-4">
-            <label>Matric Number (Unique Voting ID): <strong class="text-danger">*</strong></label>
-            <input class="form-control" type="text" name="unique_voting_id">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Unique Voting Passphrase: <strong class="text-danger">*</strong></label>
-            <input class="form-control" type="password" name="password">
-          </div>
-          <div class="form-group col-md-4">
-            <label>Retype Unique Voting Passphrase: <strong class="text-danger">*</strong></label>
-            <input class="form-control" type="password" name="retype_password">
-          </div>
-        </fieldset>
-
-        <div class="form-group mt-4">
-          <button class="btn btn-success form-control" type="submit">Create Voter</button>
-        </div>
+        <div class="form-group col-6 offset-3 mt-4">
+          <input class="form-control form-control-lg text-center" type="text" name="unique_voting_id" value="HD2019/00000/1/CS" placeholder="Matric Number or Reg Number.....">
+          <button class="btn btn-primary mx-auto d-block mt-4" type="submit">Create Voter</button>
+        </div> 
       </form>
     </div>
   </div>

@@ -12,13 +12,6 @@ let CandidateSchema = new mongoose.Schema({
   middle_name: {
     type: String,
   },
-  gender: {
-    type: String,
-  },
-  party: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: false,
-  },
   position: {
     type: String,
     required: true,
@@ -26,9 +19,6 @@ let CandidateSchema = new mongoose.Schema({
   election: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'election'
-  },
-  photo: {
-    type: String,
   }
 })
 

@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="shortcut icon" href="/images/favicon-32x32.png" type="image/png" />
   <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/app.css" type="text/css" />
@@ -17,47 +19,40 @@
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-primary text-white py-0">
-    <a class="display-4 mr-2" href="#">
-      <i class="fa fa-compass text-white display-4" aria-hidden="true"></i>
-    </a>
-    <h4 class="font-weight-normal app-title"><%= appname %>
-    </h4>
+  <nav class="navbar navbar-expand-sm bg-primary text-white py-0 d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center py-2">
+      <img class="logo mr-3" src="/images/logo.png" alt="logo">
+      <h4 class="font-weight-normal app-title"><%= appname %>
+      </h4>
+    </div>
   </nav>
 
   <main class="container-fluid">
     <section class="row space">
-      <div class="col-md-8 offset-2 bg-success mb-4 pt-3 text-white text-center">
+      <div class="col-md-8 offset-2 mb-4 pt-3 text-white text-center">
         <div>
           <h2>Election Results for:</h2>
-          <h3><%= election.title %></h3>
+          <h3 class="text-success"><%= election.title %></h3>
         </div>
       </div>
     <% positions.forEach(p => { %>
       <div class="col-md-4 mb-4">
-        <h4 class="text-white text-center py-2 mb-0 bg-dark"><%= p.title %></h4>
+        <h4 class="text-white text-center py-2 mb-0 bg-dark" style="border-top-left-radius: 16px; border-top-right-radius: 16px;"><%= p.title %></h4>
         <ul class="list-group py-4 bg-white">
           <% p.candidates.forEach( c => { %>
           <% if (c.position == p.title) { %> 
-          <li class="list-group-item p-2">
-            <div class="d-flex w-100">
-              <div class="d-inline-block mx-2">
-                <img class="candidate-thumbnail" src='<%= "/images/" + c.photo  %>'>
+          <li class="list-group-item p-2 mx-4">
+            <div class="d-flex w-100 justify-content-between">
+              <p class="lead"><strong><%= c.surname + ", " + c.first_name + " " + c.middle_name %></strong></p>
+              <span class="subtitle"><%= Number((c.count / p.totalVotes) * 100).toFixed(1)%>%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar p-2" role="progressbar" aria-valuenow="70"
+              aria-valuemin="0" aria-valuemax="100" style='<%= "width:" + Number((c.count / p.totalVotes) * 100).toFixed(0) + "%" %>'>
               </div>
-              <div class="d-inline-block mx-2 align-self-start py-2">
-                <p class="lead text-primary"><strong><%= c.surname + ", " + c.first_name + " " + c.middle_name %></strong></p>
-                <% if (c.party) { %>
-                  <p class="subtitle">
-                    <%= c.party.name %>
-                  </p>
-                <% } %>
-              </div>
-              <div class="mx-2 text-right d-inline-block">
-                <h1 class="text-danger d-inline"><%= c.count %></h1>
-                <span class="lead">vote(s)</span>
-                <h3 class="subtitle"><%= Number((c.count / p.totalVotes) * 100).toFixed(1)%>%</h3>
-                <h5>Of Votes Cast</h5>
-              </div>
+            </div>
+            <div>
+              <span><%= c.count %> vote(s)</span>
             </div>
           </li>
           <% } %>
@@ -66,7 +61,7 @@
       </div>
     <% }) %>
   </div>
-</section>
+    </section>
 </main>
 
   

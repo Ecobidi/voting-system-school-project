@@ -1,7 +1,6 @@
 const path = require('path')
 const CandidateService = require('../services/candidate')
 const ElectionService = require('../services/election')
-const PartyService = require('../services/party')
 
 class CandidateController {
 
@@ -20,14 +19,12 @@ class CandidateController {
     if (!election_id) {
       return res.redirect('/candidates/select-election')
     }
-    
     try {
       let election = await ElectionService.findById(election_id)
       if (!election) {
         return res.redirect('/candidates/select-election')
       }
-      let parties = await PartyService.findAll()
-      res.render('candidates-new', { election, parties, error_msg: req.flash('error_msg') })
+      res.render('candidates-new', { election, error_msg: req.flash('error_msg') })
     } catch (error) {
       console.log(error)
       res.redirect('/candidates')

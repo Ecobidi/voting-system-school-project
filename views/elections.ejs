@@ -22,10 +22,6 @@
           <tr>
             <td><small>Photo</small></td>
             <td><small>Title</small></td>
-            <td><small>Start Date</small></td>
-            <td><small>Start Time (24 Hours Format)</small></td>
-            <td><small>End Date</small></td>
-            <td><small>End Time (24 Hours Format)</small></td>
             <td><small>Description</small></td>
             <td></td>
           </tr>
@@ -37,15 +33,9 @@
                 <img class="table-thumbnail" src='<%= "/images/" + m.photo  %>'>
               </td>
               <td><%= m.title %></td>
-              <td><%= m.start_time.split('T')[0] %></td>
-              <td><%= m.start_time.split('T')[1] %></td>
-              <td><%= m.end_time.split('T')[0] %></td>
-              <td><%= m.end_time.split('T')[1] %></td>
               <td><%= m.description %></td>
               <td>
-                <% if (new Date() > new Date(m.end_time)) { %>
-                  <a href='<%= "/elections/results?election_id=" + m._id %>' class="m-2 btn btn-sm btn-success">View Result</a>
-                <% } %>
+                <a href='<%= "/elections/results?election_id=" + m._id %>' class="m-2 btn btn-sm btn-success">View Result</a>
                 <a href='<%= "/elections/remove/" + m._id %>' class="m-2 btn btn-sm btn-danger">Remove</a>
               </td>
             </tr>

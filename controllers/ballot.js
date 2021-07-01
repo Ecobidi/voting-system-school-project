@@ -30,6 +30,7 @@ class BallotController {
       }
 
       let candidates = await CandidateService.findByElection(election_id)
+      console.log(election)
       res.render('ballots-new', {election, candidates})
     } catch (error) {
       console.log(error)
@@ -52,7 +53,7 @@ class BallotController {
 
   static async handleBallotLogin(req, res) {
     try {
-      let voter = await VoterService.findByEmail(req.body.email)
+      let voter = await VoterService.findByVotingId(req.body.unique_voting_id)
       if (!voter) {
         req.flash('error_msg', 'Invalid Voter Information!')
         return res.redirect('/ballots/login')

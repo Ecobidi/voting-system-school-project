@@ -15,12 +15,6 @@ let ElectionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  start_time: {
-    type: String,
-  },
-  end_time: {
-    type: String,
-  },
   description: {
     type: String,
   },

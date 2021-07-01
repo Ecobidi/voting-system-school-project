@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req,res) => {
   let dao = req.body
   try {
-    let users = await UserService.findAll()
     let user = await UserService.findByUsername(dao.username)
     // console.log(user)
     // check for password match
@@ -22,7 +21,7 @@ router.post('/', async (req,res) => {
     }
   } catch (err) {
     console.log(err)
-    req.flash('error_msg', 'Last Operation Failed')
+    req.flash('error_msg', 'Something went wrong, try again!')
     res.redirect('/login')
   }
 })

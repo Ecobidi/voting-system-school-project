@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/images/favicon.ico" />
+  <link rel="shortcut icon" href="/images/favicon-32x32.png" type="image/png" />
   <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="/css/app.css" type="text/css" />
@@ -14,14 +16,15 @@
     .text-primary {
       color: #3244a2 !important;
     }
+    body {
+      background-position: center center;
+    }
   </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-sm bg-primary text-white py-0 d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center">
-      <a class="display-4 mr-2" href="#">
-        <i class="fa fa-compass text-white display-4" aria-hidden="true"></i>
-      </a>
+    <div class="d-flex align-items-center py-2">
+      <img class="logo mr-3" src="/images/logo.png" alt="logo">
       <h4 class="font-weight-normal app-title"><%= appname %>
       </h4>
     </div>
@@ -30,7 +33,7 @@
     </div>
   </nav>
 
-  <main class="container-fluid">
+  <main class="container">
   <div class="row space">
     <div class="col-12 d-flex justify-content-center align-items-center underline pb-2">
       <h3 class="title text-white text-center">Ongoing Elections</h3>
@@ -58,16 +61,19 @@
         <% elections.forEach( e => { %>
           <li class="text-white d-flex justify-content-between border p-2 mb-3 rounded">
             <h4><%= e.title %></h4>
-            <a href='<%= "/ballots/election?election_id=" + e._id %>' class="mx-4 btn btn-primary"><small>Proceed To Vote</small></a>
+            <div>
+              <a href='<%= "/ballots/election?election_id=" + e._id %>' class="mx-2 btn btn-primary"><small>Proceed To Vote</small></a>
+              <a target="_blank" href='<%= "/ballots/results?election_id=" + e._id %>' class="mx-2 btn btn-success"><small>View Results</small></a>
+            </div>
           </li>
         <% } ) %>
       </ul>
     </div>
   </div>
+
 </main>
 </div>
 
 </div>
   
-
 <%- include ('partials/bottom') %>

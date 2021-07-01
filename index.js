@@ -10,20 +10,19 @@ let { APPNAME, PORT, dbhost, dbport, dbname, sessionsecret, domain, owner_mat_no
 
 let port = process.env.PORT || PORT
 
-console.log(process.env.PORT)
-
 //bring in mongo uri from mlab
 const mongoURI = "mongodb+srv://ecobidi:tronpoker2012@cluster0.qmunc.mongodb.net/votingsystem?retryWrites=true&w=majority"
 //monnect mongodb
 mongoose.connect(mongoURI, { useMongoClient: true });
 
+// mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
+
 // routes
-const { LoginRouter, UserRouter, BallotRouter, CandidateRouter, ElectionRouter, PartyRouter, VoterRouter } = require('./routes')
+const { LoginRouter, UserRouter, BallotRouter, CandidateRouter, ElectionRouter, VoterRouter } = require('./routes')
 
 // models
 const CandidateModel = require('./models/candidate')
 const ElectionModel = require('./models/election')
-const PartyModel = require('./models/party')
 const VoterModel = require('./models/voter')
 const UserModel = require('./models/user')
 
@@ -78,6 +77,8 @@ app.use((req, res, next) => {
 
 // routes
 
+app.use('/ballots', BallotRouter)
+
 app.use('/login', LoginRouter)
 
 app.use('/', (req, res, next) => {
@@ -97,41 +98,30 @@ app.get('/logout', (req, res) => {
 
 let getDashboard = async (req, res) => {
   try {
-    let party_count = await PartyModel.count()
     let candidate_count = await CandidateModel.count()
     let voter_count = await VoterModel.count()
     let election_count = await ElectionModel.count()
     let user_count = await UserModel.count()
-    res.render('dashboard', {party_count, candidate_count, election_count, voter_count, user_count})
+    res.render('dashboard', {candidate_count, election_count, voter_count, user_count})
   } catch (err) {
     console.log(err)
     res.render('dashboard', {
-      party_count: 0, candidate_count: 0, election_count: 0,
+      candidate_count: 0, election_count: 0,
       voter_count: 0, user_count: 0,
     })
   }
 }
 
-// let getDashboard = async (req, res) => {
-//   res.render('dashboard')
-// }
-
 app.get('/', getDashboard)
 
 app.get('/dashboard', getDashboard)
-
-app.use('/ballots', BallotRouter)
 
 app.use('/candidates', CandidateRouter)
 
 app.use('/elections', ElectionRouter)
 
-app.use('/parties', PartyRouter)
-
 app.use('/voters', VoterRouter)
 
 app.use('/users', UserRouter)
-
-console.log(port)
 
 app.listen(port, () => { console.log(`${APPNAME} running on port ${port}`) })

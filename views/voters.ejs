@@ -20,30 +20,14 @@
       <table class="table table-bordered table-striped text-white">
         <thead class="font-weight-bold">
           <tr>
-            <td>Photo</td>
-            <td>Surname</td>
-            <td>Other Names</td>
             <td>Unique Voting ID</td>
-            <td>Gender</td>
-            <td>Telephone</td>
-            <td>Residency</td>
-            <td>Place of Origin</td>
             <td>Actions</td>
           </tr>
         </thead>
         <tbody>
           <% voters.forEach((m) => { %>
             <tr>
-              <td>
-                <img class="table-thumbnail" src='<%= "/images/" + m.photo  %>'>
-              </td>
-              <td><small><%= m.surname %></small></td>
-              <td><small><%= m.first_name + " " + m.middle_name %></small></td>
               <td><small><%= m.unique_voting_id %></small></td>
-              <td><small><%= m.gender %></small></td>
-              <td><small><%= m.phone %></small></td>
-              <td><small><%= m.resident_address + ", " + m.resident_city + ", " + m.resident_state %></small></td>
-              <td><%= m.origin_lga + ", " + m.origin_state %></small></td>
               <td>
                 <a href='<%= "/voters/remove/" + m._id %>' class="btn btn-sm btn-danger">Remove</a>
               </td>

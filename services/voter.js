@@ -2,8 +2,8 @@ const VoterModel = require('../models/voter')
 
 class VoterService {
 
-  static async findByEmail(email) {
-    return VoterModel.findOne({email})
+  static async findByVotingId(unique_voting_id) {
+    return VoterModel.findOne({unique_voting_id})
   }
 
   static async findById(id) {
