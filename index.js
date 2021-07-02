@@ -13,9 +13,9 @@ let port = process.env.PORT || PORT
 //bring in mongo uri from mlab
 const mongoURI = "mongodb+srv://ecobidi:tronpoker2012@cluster0.qmunc.mongodb.net/votingsystem?retryWrites=true&w=majority"
 //monnect mongodb
-// mongoose.connect(mongoURI, { useMongoClient: true });
+mongoose.connect(mongoURI, { useMongoClient: true });
 
-mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
+// mongoose.connect(`mongodb://${dbhost}:${dbport}/${dbname}`)
 
 // routes
 const { LoginRouter, UserRouter, BallotRouter, CandidateRouter, ElectionRouter, VoterRouter } = require('./routes')
