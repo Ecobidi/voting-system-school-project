@@ -62,7 +62,7 @@
           <li class="text-white d-flex justify-content-between border p-2 mb-3 rounded">
             <h4><%= e.title %></h4>
             <div>
-              <a href='<%= "/ballots/election?election_id=" + e._id %>' class="mx-2 btn btn-primary"><small>Proceed To Vote</small></a>
+              <a href='<%= "/ballots/election?election_id=" + e._id %>' class="mx-2 btn btn-primary disabled"><small>Proceed To Vote</small></a>
               <a target="_blank" href='<%= "/ballots/results?election_id=" + e._id %>' class="mx-2 btn btn-success"><small>View Results</small></a>
             </div>
           </li>

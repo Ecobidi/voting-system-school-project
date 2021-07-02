@@ -11,32 +11,34 @@ class BallotController {
   }
 
   static async getVotingPage(req, res) {
-    let election_id = req.query.election_id
-    if (!election_id) {
-      req.flash('error_msg', 'No Ongoing Election Selected')
-      return res.redirect('/ballots/ongoing')
-    }
-    try {
-      let election = await ElectionService.findById(election_id)
-      if (!election) {
-        req.flash('error_msg', 'No Matching Election Found')
-        return res.redirect('/ballots/ongoing')
-      }
-      // check if voter has already cast their votes
-      let numberOfBallots = await BallotService.countByVoterIdAndElectionId(req.session.voter._id, election_id)
-      if (numberOfBallots > 0) {
-        req.flash('error_msg', 'You have already cast your vote!')
-        return res.redirect('/ballots/ongoing')
-      }
+    // let election_id = req.query.election_id
+    // if (!election_id) {
+    //   req.flash('error_msg', 'No Ongoing Election Selected')
+    //   return res.redirect('/ballots/ongoing')
+    // }
+    // try {
+    //   let election = await ElectionService.findById(election_id)
+    //   if (!election) {
+    //     req.flash('error_msg', 'No Matching Election Found')
+    //     return res.redirect('/ballots/ongoing')
+    //   }
+    //   // check if voter has already cast their votes
+    //   let numberOfBallots = await BallotService.countByVoterIdAndElectionId(req.session.voter._id, election_id)
+    //   if (numberOfBallots > 0) {
+    //     req.flash('error_msg', 'You have already cast your vote!')
+    //     return res.redirect('/ballots/ongoing')
+    //   }
 
-      let candidates = await CandidateService.findByElection(election_id)
-      console.log(election)
-      res.render('ballots-new', {election, candidates})
-    } catch (error) {
-      console.log(error)
-      req.flash('error_msg', 'An error occured')
-      res.redirect('/ballots/ongoing')
-    }
+    //   let candidates = await CandidateService.findByElection(election_id)
+    //   console.log(election)
+    //   res.render('ballots-new', {election, candidates})
+    // } catch (error) {
+    //   console.log(error)
+    //   req.flash('error_msg', 'An error occured')
+    //   res.redirect('/ballots/ongoing')
+    // }
+    req.flash('Please voting has closed. You can proceed to view the elections results')
+    res.redirect('/ballots/ongoing')
   }
 
   static async getBallotLoginPage(req, res) {
